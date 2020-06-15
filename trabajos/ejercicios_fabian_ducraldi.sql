@@ -1,3 +1,4 @@
+DROP DATABASE libreria_cf;
 CREATE DATABASE libreria_cf; 
 
 
@@ -26,11 +27,8 @@ VALUES ('7066', 'Barnum\'s', '567 Pasadena Ave.', 'Tustin', 'CA', 'USA', '92789'
 ('7896', 'Fricative Bookshop', '89 Madison St.', 'Fremont', 'CA', 'USA', '90019', 'Net 60'),
 ('5023', 'Thoreau Reading Discount Chain', '20435 Walden Expressway', 'Concord', 'MA', 'USA', '01776', 'Net 60');
 
-
-SELECT * FROM tiendas; -- vemos nuestra tabla 
-
 /* !) con esto espesificamos lo que queremos */
-SELECT nombre_tienda, ciudad, estado FROM tiendas WHERE estado = 'WA';
+SELECT DISTINCT nombre_tienda, ciudad, estado FROM tiendas WHERE estado = 'WA';
 
 
 /* Libros de ventas */
@@ -69,27 +67,26 @@ INSERT INTO `titulos` (`id_titulo`, `titulo`, `tipo`, `id_pub`, `precio`, `avanc
 ('TC7777', 'Sushi, Anyone?', 'trad_cook', '0877', 15, 8000, 4095, 'Detailed instructions on improving your position in life by learning how to make authentic Japanese sushi in your spare time.  5-10% increase in number of friends per recipe reported from beta test.', '1987-06-12 12:00:00', '1');
 
 
-
 /* 2) Para ver tipos libro hay  */
-SELECT tipo FROM titulos;
+SELECT DISTINCT tipo FROM titulos;
 
 /* 3) para ver los titulos exisene y la fecha de publicacion de los libros */
 SELECT titulo, fecha_pub FROM titulos;
 
 /* 4) para listar el precio mayor a $10 */
-SELECT titulo, precio FROM titulos WHERE precio >= 10;
+SELECT DISTINCT titulo, precio FROM titulos WHERE precio > 10;
 
 /* 5) para ver  los tipo de libro business.*/
-SELECT  id_titulo, tipo, avance FROM titulos WHERE tipo = 'business'; 
+SELECT DISTINCT titulo, tipo FROM titulos WHERE tipo = 'business'; 
 
-/* 6) para ver todoso los libro que contena la palabra (cumputer)*/
-SELECT id_titulo, titulo, tipo FROM titulos WHERE tipo = 'business' or titulo = "computers"; 
+/* 6) para ver todos los libro que contena la palabra (cumputer)*/
+SELECT titulo FROM titulos WHERE titulo = 'computer'; 
 
 /* 7) para ver los libro llamado (pstcholoy) y que cuesten mas de $20 */
 SELECT id_titulo, titulo, tipo, precio FROM titulos WHERE tipo = 'psychology' and precio > 20 ;
 
 /* 8) para buscar los libro que este entre 10 y 20 de precio */
-SELECT id_titulo, titulo, tipo, precio FROM titulos WHERE precio >= 10 and precio <= 20;
+SELECT DISTINCT id_titulo, titulo, tipo, precio FROM titulos WHERE precio between 10 and 20;
 
 /* 9) para ver la categoria publicada (0877)*/
 SELECT id_titulo, tipo, id_pub FROM titulos WHERE id_pub = 0877; 
@@ -97,20 +94,20 @@ SELECT id_titulo, tipo, id_pub FROM titulos WHERE id_pub = 0877;
 /* 10) Encuentre el título del libro que está en la categoría ;psychology;, que
 cuesta mas de $20 y que tiene la palabra Computer; en el título.*/
 
-SELECT titulo, tipo, precio FROM titulos WHERE titulo = 'comupter' OR tipo = 'psychology' AND precio > 20;
+SELECT DISTINCT titulo, tipo, precio FROM titulos WHERE titulo = 'computer' OR tipo = 'psychology' AND precio > 20;
 
 /* 11) Encuentre aquellos libros que tienen un avance superior a $5000 y
 han vendido menos de 4000 copias.*/
 
-SELECT titulo, tipo, avance, total_ventas FROM titulos WHERE avance >= 5000 AND total_ventas =< 4000;
+SELECT titulo, tipo, avance, total_ventas FROM titulos WHERE avance > 5000 AND total_ventas < 4000;
 
 /* 12) Cuales son las categorías de libros que han vendido 4000 a 5000
 copias en total.*/
 
-SELECT titulo, tipo, total_ventas FROM titulos WHERE total_ventas >= '4000' AND total_ventas <= '5000';
+SELECT titulo, tipo, total_ventas FROM titulos WHERE total_ventas > '4000' AND total_ventas < '5000';
 
 /* 13) Cuales libros han vendido mas de 1000 copias y cuestan menos de
 $10 en la categoría de &quot;business&quot; o en la categoría de cocina moderna
 (&quot;mod_cook&quot;)*/
 
-SELECT tipo, precio, total_ventas FROM titulos WHERE tipo = 'mod_cook' OR tipo = 'business' AND precio <= '10';
+SELECT tipo, precio FROM titulos WHERE tipo = 'business' OR tipo = 'mod_cook' AND precio < 10; 
