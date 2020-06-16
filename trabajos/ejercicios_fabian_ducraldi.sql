@@ -66,6 +66,7 @@ INSERT INTO `titulos` (`id_titulo`, `titulo`, `tipo`, `id_pub`, `precio`, `avanc
 ('TC4203', 'Fifty Years in Buckingham Palace Kitchens', 'trad_cook', '0877', 12, 4000, 15096, 'More anecdotes from the Queen\'s favorite cook describing life among English royalty.  Recipes, techniques, tender vignettes.', '1985-06-12 12:00:00', '1'),
 ('TC7777', 'Sushi, Anyone?', 'trad_cook', '0877', 15, 8000, 4095, 'Detailed instructions on improving your position in life by learning how to make authentic Japanese sushi in your spare time.  5-10% increase in number of friends per recipe reported from beta test.', '1987-06-12 12:00:00', '1');
 
+ 
 
 /* 2) Para ver tipos libro hay  */
 SELECT DISTINCT tipo FROM titulos;
@@ -80,7 +81,7 @@ SELECT DISTINCT titulo, precio FROM titulos WHERE precio > 10;
 SELECT DISTINCT titulo, tipo FROM titulos WHERE tipo = 'business'; 
 
 /* 6) para ver todos los libro que contena la palabra (cumputer)*/
-SELECT titulo FROM titulos WHERE titulo = 'computer'; 
+SELECT titulo FROM titulos WHERE titulo LIKE '%Computer%';
 
 /* 7) para ver los libro llamado (pstcholoy) y que cuesten mas de $20 */
 SELECT id_titulo, titulo, tipo, precio FROM titulos WHERE tipo = 'psychology' and precio > 20 ;
@@ -110,4 +111,4 @@ SELECT titulo, tipo, total_ventas FROM titulos WHERE total_ventas > '4000' AND t
 $10 en la categoría de &quot;business&quot; o en la categoría de cocina moderna
 (&quot;mod_cook&quot;)*/
 
-SELECT tipo, precio FROM titulos WHERE tipo = 'business' OR tipo = 'mod_cook' AND precio < 10; 
+SELECT tipo, precio FROM titulos WHERE precio < 10 AND (tipo = 'business' OR tipo = 'mod_cook');
