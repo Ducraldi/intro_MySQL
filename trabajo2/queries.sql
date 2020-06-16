@@ -1,16 +1,12 @@
-DROP DATABASE prueba_modulo2_ducraldi;
- 
-CREATE DATABASE prueba_modulo2_ducraldi;
 
-ALTER DATABASE prueba_modulo2_ducraldi charset=utf8;
+SOURCE C:/xampp/htdocs/intro_MySQL/trabajo2/prueba_modulo2_ducraldi.sql;
 
-USE prueba_modulo2_ducraldi;
 
 CREATE TABLE IF NOT EXISTS publicadores (
     id INT(11) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nombre TEXT NOT NULL,
     ciudad VARCHAR(15) NOT NULL,
-    estado  VARCHAR(2) NOT NULL
+    estado  VARCHAR(2) NOT NULL 
 );
 
 CREATE TABLE IF NOT EXISTS tiendas (
@@ -21,7 +17,7 @@ CREATE TABLE IF NOT EXISTS tiendas (
     estado VARCHAR(2) NOT NULL
 );
 
-INSERT INTO publicadores(`nombre`, `ciudad`, `estado`)
+INSERT INTO publicadores(`nombre`, `ciudad`, `estado`) 
 VALUES ('New Age Books', 'Boston', 'MA'),
 ('Binnet & Hardley', 'Washington', 'DC'),
 ('Algodata Infosystems', 'Berkeley', 'CA');
@@ -89,7 +85,7 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 /* 1- Encuentre sólo las categorías (sin duplicar) de libros del publicador Algodata Infosystems. */
-SELECT DISTINCT categoria, pub.nombre AS nombre_autorFROM libros AS libINNER JOIN publicadores AS pub ON lib.id_publicador = pub.id WHERE pub.nombre = "Algodata Infosystems";
+SELECT DISTINCT categoria, pub.nombre AS nombre_autor FROM libros AS lib INNER JOIN publicadores AS pub ON lib.id_publicador = pub.id WHERE pub.nombre = "Algodata Infosystems";
 
 /* 2- Encuentre aquellos libros que han vendido menos de 4000 copias. */
 SELECT titulo, cantidad_vendida FROM libros WHERE cantidad_vendida < 4000;
